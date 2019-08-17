@@ -40,7 +40,7 @@ class Customer
     ticket_data.map { |ticket| Ticket.new(ticket)}
   end
 
-  def no_of_tickets_purchased
+  def total_tickets_purchased
     self.tickets.count
   end
 
