@@ -26,22 +26,19 @@ customer3 = Customer.new({
 film1 = Film.new({
   'title' => 'In The Loop',
   'price' => 8.00,
-  'year' => 2009,
-  'show_time' => '20:50'
+  'year' => 2009
 })
 
 film2 = Film.new({
   'title' => 'War of the Worlds',
   'price' => 4.50,
-  'year' => 2004,
-  'show_time' => '22:00'
+  'year' => 2004
 })
 
 film3 = Film.new({
   'title' => 'Spider Man',
   'price' => 10.00,
-  'year' => 2014,
-  'show_time' => '23:50'
+  'year' => 2014
 })
 
 customer1.save
