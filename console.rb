@@ -33,9 +33,40 @@ film3 = Film.new({
   'price' => 10.00
 })
 
+ticket1 = Ticket.new({
+  'film_id' => 1,
+  'customer_id' => 1
+})
+
+ticket2 = Ticket.new({
+  'film_id' => 2,
+  'customer_id' => 1
+})
+
+ticket3 = Ticket.new({
+  'film_id' => 1,
+  'customer_id' => 3
+})
+
+ticket4 = Ticket.new({
+  'film_id' => 2,
+  'customer_id' => 1
+})
+
+ticket5 = Ticket.new({
+  'film_id' => 3,
+  'customer_id' => 2
+})
+
+
 customer1.save
 customer2.save
 customer3.save
 film1.save
 film2.save
 film3.save
+ticket1.save
+ticket2.save
+ticket3.save
+ticket4.save
+ticket5.save
