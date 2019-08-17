@@ -52,6 +52,16 @@ class Customer
     film_data.map { |film| Film.new(film)}
   end
 
+  def buys_ticket(film)
+    @funds -= film.price
+    new_ticket = Ticket.new({
+      'film_id' => film.id,
+      'customer_id' => self.id
+    })
+    new_ticket.save
+    update
+  end
+
   def self.delete_all
     sql = "DELETE FROM customers"
     SqlRunner.run(sql)

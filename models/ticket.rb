@@ -12,8 +12,7 @@ class Ticket
   end
 
   def save
-    sql = "INSERT INTO tickets (film_id, customer_id)
-    VALUES ($1, $2) RETURNING id"
+    sql = "INSERT INTO tickets (film_id, customer_id) VALUES ($1, $2) RETURNING id"
     values = [@film_id, @customer_id]
     ticket = SqlRunner.run(sql, values)
     @id = ticket[0]['id'].to_i
