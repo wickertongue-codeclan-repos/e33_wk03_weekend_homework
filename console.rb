@@ -25,17 +25,23 @@ customer3 = Customer.new({
 
 film1 = Film.new({
   'title' => 'In The Loop',
-  'price' => 8.00
+  'price' => 8.00,
+  'year' => 2009,
+  'show_time' => '20:50'
 })
 
 film2 = Film.new({
   'title' => 'War of the Worlds',
-  'price' => 4.50
+  'price' => 4.50,
+  'year' => 2004,
+  'show_time' => '22:00'
 })
 
 film3 = Film.new({
   'title' => 'Spider Man',
-  'price' => 10.00
+  'price' => 10.00,
+  'year' => 2014,
+  'show_time' => '23:50'
 })
 
 customer1.save
@@ -78,3 +84,12 @@ ticket5.save
 
 binding.pry
 nil
+
+
+
+__END__
+
+Create a screenings table that lets us know what time films are showing
+Write a method that finds out what is the most popular time (most tickets sold) for a given film
+Limit the available tickets for screenings.
+Add any other extensions you think would be great to have at a cinema!

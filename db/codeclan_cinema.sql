@@ -5,7 +5,9 @@ DROP TABLE customers;
 CREATE TABLE films (
   id SERIAL4 PRIMARY KEY,
   title VARCHAR(255),
-  price DECIMAL
+  price DECIMAL,
+  year INT2,
+  show_time VARCHAR(255)
 );
 
 CREATE TABLE customers (
