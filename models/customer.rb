@@ -40,6 +40,10 @@ class Customer
     ticket_data.map { |ticket| Ticket.new(ticket)}
   end
 
+  def no_of_tickets_purchased
+    self.tickets.count
+  end
+
   def films
     sql = "SELECT films.* FROM films
       INNER JOIN tickets
@@ -59,7 +63,7 @@ class Customer
       'customer_id' => self.id
     })
     new_ticket.save
-    update
+    self.update
   end
 
   def self.delete_all
