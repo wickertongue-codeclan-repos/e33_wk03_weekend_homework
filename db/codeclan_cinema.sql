@@ -11,7 +11,7 @@ CREATE TABLE films (
 CREATE TABLE customers (
   id SERIAL4 PRIMARY KEY,
   name VARCHAR(255),
-  funds DECIMAL
+  funds FLOAT
 );
 
 CREATE TABLE screenings (

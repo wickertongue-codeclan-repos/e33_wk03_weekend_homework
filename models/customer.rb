@@ -56,21 +56,32 @@ class Customer
     film_data.map { |film| Film.new(film) }
   end
 
+  # the below method should likely include a ticket.sold method rather than including raw code within the customer class?
+
+
   def buys_ticket(film, show_time)
-    screening_customer_is_attending = film.find_specific_screening(show_time)
-    # the above returns an array containing the screening information
-    # screening_customer_is_viewing[0].id
-    # the above returns the screening id within the array
-    @funds -= screening_customer_is_attending[0].price
-    # this method should likely include a ticket.sold method rather than including raw code within the customer class?
-    # needs to use a method that uses film and showtime to find the screening information, so that price can be pulled from screening information and calculated.
-    new_ticket = Ticket.new({
-      'film_id' => film.id,
-      'customer_id' => self.id,
-      'screening_id' => screening_customer_is_attending[0].id
-    })
-    new_ticket.save
-    self.update
+    viewing = film.find_specific_screening(show_time)
+    admission_price = viewing[0].price
+    if self.check_funds(admission_price) == true
+      @funds -= viewing[0].price
+      new_ticket = Ticket.new({
+        'film_id' => film.id,
+        'customer_id' => self.id,
+        'screening_id' => viewing[0].id
+      })
+      new_ticket.save
+      self.update
+    else
+      return "No Sale"
+    end
+  end
+
+  def check_funds(amount)
+    if (@funds - amount) < 0.0
+      return false
+    else
+      return true
+    end
   end
 
   def self.delete_all

@@ -25,6 +25,11 @@ customer3 = Customer.new({
   'funds' => 23.34
   })
 
+customer4 = Customer.new({
+  'name' => 'No Money Frank',
+  'funds' => 0.20
+  })
+
 film1 = Film.new({
   'title' => 'In The Loop',
   'year' => 2009
