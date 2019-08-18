@@ -20,7 +20,7 @@ CREATE TABLE screenings (
   film_title VARCHAR(255),
   year INT2,
   show_time VARCHAR(255),
-  price DECIMAL
+  price FLOAT
 );
 
 -- issues with the below given that if the films(id), customers(id) or screenings(id) is deleted then the ticket is also removed - perhaps not the best solution?

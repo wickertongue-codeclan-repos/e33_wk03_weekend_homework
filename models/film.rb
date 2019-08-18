@@ -81,6 +81,21 @@ class Film
     tickets_data.map {|tickets| Ticket.new(tickets)}
   end
 
+  def bestselling_time
+    film.screening
+  end
+
+  def most_popular_time
+    all_tickets = self.tickets_sold
+    empty_array = []
+    all_tickets.each do |ticket|
+      empty_array.push(ticket.screening_id)
+    end
+    return empty_array
+  end
+
+  # for a film, take each screening and then take every ticket for that screening.
+
 end
 
 
