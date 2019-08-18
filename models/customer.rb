@@ -56,11 +56,12 @@ class Customer
     film_data.map { |film| Film.new(film)}
   end
 
-  def buys_ticket(film)
+  def buys_ticket(film, show_time)
     @funds -= film.price
     new_ticket = Ticket.new({
       'film_id' => film.id,
-      'customer_id' => self.id
+      'customer_id' => self.id,
+      'screening_id' => film.find_specific_screening(show_time)
     })
     new_ticket.save
     self.update

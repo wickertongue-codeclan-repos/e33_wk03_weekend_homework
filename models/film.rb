@@ -3,24 +3,23 @@ require_relative('../db/sqlrunner')
 class Film
 
   attr_reader :id
-  attr_accessor :title, :price, :year, :show_time
+  attr_accessor :title, :price
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
     @title = options['title']
-    @price = options['price']
   end
 
   def save
-    sql = "INSERT INTO films (title, price) VALUES ($1, $2) RETURNING id"
-    values = [@title, @price]
+    sql = "INSERT INTO films (title) VALUES ($1) RETURNING id"
+    values = [@title]
     film = SqlRunner.run(sql, values)
     @id = film[0]['id'].to_i
   end
 
   def update
-    sql = "UPDATE films SET (title, price) = ($1, $2) where id = $3"
-    values = [@title, @price, @id]
+    sql = "UPDATE films SET (title) = ($1) where id = $2"
+    values = [@title]
     SqlRunner.run(sql, values)
   end
 
@@ -39,7 +38,37 @@ class Film
       WHERE film_id = $1"
     values = [@id]
     customer_data = SqlRunner.run(sql, values)
-    customer_data.map { |customer| Customer.new(customer)}
+    customer_data.map {|customer| Customer.new(customer)}
+  end
+
+  def screenings
+    sql = "SELECT screenings.* FROM screenings
+      INNER JOIN films
+      ON screenings.film_id = films.id
+      WHERE film_id = $1"
+    values = [@id]
+    screening_data = SqlRunner.run(sql, values)
+    screening_data.map {|screening| Screening.new(screening)}
+  end
+
+  def find_specific_screening(show_time)
+    sql = "SELECT screenings.* FROM screenings
+      INNER JOIN films
+      ON screenings.film_id = films.id
+      WHERE screenings.show_time = $1"
+    values = [show_time]
+    screening_data = SqlRunner.run(sql, values)
+    screening_data.map {|screening| Screening.new(screening)}
+  end
+
+  def find_specific_screening_return_id(show_time)
+    sql = "SELECT screenings.id FROM screenings
+      INNER JOIN films
+      ON screenings.film_id = films.id
+      WHERE screenings.show_time = $1"
+    values = [show_time]
+    screening_data = SqlRunner.run(sql, values)
+    screening_data.map {|screening| Screening.new(screening)}
   end
 
   def total_attendees
