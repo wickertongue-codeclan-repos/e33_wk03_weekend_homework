@@ -61,16 +61,6 @@ class Film
     screening_data.map {|screening| Screening.new(screening)}
   end
 
-  def find_specific_screening_return_id(show_time)
-    sql = "SELECT screenings.id FROM screenings
-      INNER JOIN films
-      ON screenings.film_id = films.id
-      WHERE screenings.show_time = $1"
-    values = [show_time]
-    screening_data = SqlRunner.run(sql, values)
-    screening_data.map {|screening| Screening.new(screening)}
-  end
-
   def total_attendees
     self.customers.count
   end
@@ -80,4 +70,18 @@ class Film
     SqlRunner.run(sql)
   end
 
+end
+
+
+
+__END__
+
+def find_specific_screening_return_id(show_time)
+  sql = "SELECT screenings.id FROM screenings
+    INNER JOIN films
+    ON screenings.film_id = films.id
+    WHERE screenings.show_time = $1"
+  values = [show_time]
+  screening_data = SqlRunner.run(sql, values)
+  screening_data.map {|screening| Screening.new(screening)}
 end

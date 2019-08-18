@@ -2,7 +2,7 @@ require_relative('../db/sqlrunner')
 
 class Screening
 
-  attr_reader :film_id, :film_title, :id
+  attr_reader :film_id, :film_title, :id, :price
   attr_accessor :show_time, :year
 
   def initialize(options)

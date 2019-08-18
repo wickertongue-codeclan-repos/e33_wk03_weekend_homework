@@ -23,6 +23,8 @@ CREATE TABLE screenings (
   price DECIMAL
 );
 
+-- issues with the below given that if the films(id), customers(id) or screenings(id) is deleted then the ticket is also removed - perhaps not the best solution?
+
 CREATE TABLE tickets (
   id SERIAL4 PRIMARY KEY,
   film_id INT4 REFERENCES films(id) ON DELETE CASCADE,

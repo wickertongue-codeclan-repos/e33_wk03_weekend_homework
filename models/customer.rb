@@ -37,7 +37,7 @@ class Customer
       WHERE customer_id = $1"
     values = [@id]
     ticket_data = SqlRunner.run(sql, values)
-    ticket_data.map { |ticket| Ticket.new(ticket)}
+    ticket_data.map { |ticket| Ticket.new(ticket) }
   end
 
   def total_tickets_purchased
@@ -53,15 +53,21 @@ class Customer
       WHERE customer_id = $1"
     values = [@id]
     film_data = SqlRunner.run(sql, values)
-    film_data.map { |film| Film.new(film)}
+    film_data.map { |film| Film.new(film) }
   end
 
   def buys_ticket(film, show_time)
-    @funds -= film.price
+    screening_customer_is_attending = film.find_specific_screening(show_time)
+    # the above returns an array containing the screening information
+    # screening_customer_is_viewing[0].id
+    # the above returns the screening id within the array
+    @funds -= screening_customer_is_attending[0].price
+    # this method should likely include a ticket.sold method rather than including raw code within the customer class?
+    # needs to use a method that uses film and showtime to find the screening information, so that price can be pulled from screening information and calculated.
     new_ticket = Ticket.new({
       'film_id' => film.id,
       'customer_id' => self.id,
-      'screening_id' => film.find_specific_screening(show_time)
+      'screening_id' => screening_customer_is_attending[0].id
     })
     new_ticket.save
     self.update
